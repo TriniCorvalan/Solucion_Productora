@@ -128,6 +128,12 @@ enum type_group: %w[Girlgroup Boygroup Band]
 has_many :concerts, dependent: :destroy
 ```
 
+- [x] En la vista Show de Group debe poder mostrar una tabla con los siguientes datos:
+  
+>Cuántos conciertos tuvo este mes **(2 Puntos)**
+>Cuánto tiempo ha pasado desde su último concierto (en palabras)**(1 Punto)**
+>Cuál es el concierto con la mayor cantidad de asistentes **(1 Punto)**
+>Cuál fue el concierto de mayor duración del grupo. **(1 Punto)**
 
 
 

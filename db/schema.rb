@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2020_12_14_211949) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "group_id"
+    t.index ["group_id"], name: "index_concerts_on_group_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -27,8 +29,6 @@ ActiveRecord::Schema.define(version: 2020_12_14_211949) do
     t.integer "type_group"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "concert_id"
-    t.index ["concert_id"], name: "index_groups_on_concert_id"
   end
 
 end

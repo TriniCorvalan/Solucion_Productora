@@ -22,7 +22,7 @@
         <td>
           <ul>
             <% group.concerts.each do |concert| %>
-              <li><%= concert.place %></li>
+              <li><%= concert.place %> <%= concert.attendance %> Asistentes</li>
             <% end %>
           </ul>
         </td>

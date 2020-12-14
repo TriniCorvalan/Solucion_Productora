@@ -106,11 +106,19 @@ enum type_group: %w[Girlgroup Boygroup Band]
 <td><%= group.debut_date %></td>
 
 ```
+- [x] En el index de Group se debe mostrar la cantidad total de personas que han asistido por concierto de cada grupo **(1 Punto)**
 
+*Para este requerimiento podemos agregarlo en la misma lista de conciertos*
 
-
-
-
+```ruby
+<td>
+    <ul>
+        <% group.concerts.each do |concert| %>
+            <li><%= concert.place %> <%= concert.attendance %> Asistentes</li>
+        <% end %>
+    </ul>
+</td>
+```
 
 
 

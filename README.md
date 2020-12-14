@@ -45,3 +45,45 @@ end
     <%= form.select :group_id, options_from_collection_for_select(@groups, :id, :name) %>
 </div>
 ```
+- [x] En el Index de Group desplegar la lista de grupos que existen en la compañía y por cada uno mostrar la cantidad de conciertos que han tenido a lo largo de su historia profesional. **(1 Punto)**
+
+*Para resolver este punto debe realizarse el siguiente codigo en **index.html.erb** de Group, agregando el encabezado **Concert** y una pequeña lista desordenada con los conciertos que ha tenido el grupo.*
+
+```ruby
+<th>Concerts</th>
+.
+.
+.
+.
+<td>
+    <ul>
+        <% group.concerts.each do |concert| %>
+            <li><%= concert.place %></li>
+        <% end %>
+    </ul>
+</td>
+
+```
+
+*Sin embargo esto genera el famoso error N+1 Querys, por lo que para resolver este punto con honores, es necesario agregar*
+
+```ruby
+@groups = Group.eager_load(:concerts)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

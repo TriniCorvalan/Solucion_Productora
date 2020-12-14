@@ -114,14 +114,19 @@ enum type_group: %w[Girlgroup Boygroup Band]
 <td>
     <ul>
         <% group.concerts.each do |concert| %>
-            <li><%= concert.place %> <%= concert.attendance %> Asistentes</li>
+            <li><%= concert.place %>, <%= concert.attendance %> Asistentes</li>
         <% end %>
     </ul>
 </td>
 ```
 
+- [x] Si se termina el contrato de algún grupo, entonces se debe eliminar el registro de los conciertos del mismo.**(1 Punto)**
 
+*Rails no nos deja borrar registros que son padres de otros, por defecto, por lo que debemos decirle que es algo intencional de nuestra parte. En **group.rb** agregaremos el siguiente complemento a la relación ya descrita con anterioridad*
 
+```ruby
+has_many :concerts, dependent: :destroy
+```
 
 
 

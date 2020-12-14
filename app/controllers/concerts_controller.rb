@@ -15,10 +15,12 @@ class ConcertsController < ApplicationController
   # GET /concerts/new
   def new
     @concert = Concert.new
+    @groups = Group.all
   end
 
   # GET /concerts/1/edit
   def edit
+    @groups = Group.all
   end
 
   # POST /concerts

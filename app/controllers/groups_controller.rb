@@ -15,10 +15,12 @@ class GroupsController < ApplicationController
   # GET /groups/new
   def new
     @group = Group.new
+    @type_groups = Group.type_groups.keys.to_a
   end
 
   # GET /groups/1/edit
   def edit
+    @type_groups = Group.type_groups.keys.to_a
   end
 
   # POST /groups

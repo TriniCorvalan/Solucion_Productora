@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :type_group %>
-    <%= form.number_field :type_group %>
+    <%= form.select :type_group, options_for_select(@type_groups) %>
   </div>
 
   <div class="actions">

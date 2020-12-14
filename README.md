@@ -71,9 +71,41 @@ end
 @groups = Group.eager_load(:concerts)
 ```
 
+- [x] Desde la vista Index debo ser capaz de ver la información del grupo (Cantidad de integrantes, fecha en la que el grupo debutó y si es de hombres o mujeres)**(1 Punto)**
 
+*Primero creamos el enum, para que el campo **type_group** pueda ingresar una selección*
 
+```ruby
+enum type_group: %w[Girlgroup Boygroup Band]
+```
 
+*En el método **new** y **edit** del controlador de Groups, agregamos esta linea de código para darle las opciones al select*
+
+```ruby
+@type_groups = Group.type_groups.keys.to_a
+```
+
+*Cambiamos el **number_field** que estaba con anterioridad en **type_group** a **select** para poder seleccionar el tipo de grupo manualmente*
+
+```ruby
+<div class="field">
+    <%= form.label :type_group %>
+    <%= form.select :type_group, options_for_select(@type_groups) %>
+</div>
+
+```
+*Agregamos encabezados para la **fecha debut** y para **el tipo de grupo**, a su vez agregamos los campos que rellenaran estos encabezados*
+
+```ruby
+<th>Type Of Group</th>
+<th>Debut Date</th>
+.
+.
+.
+<td><%= group.type_group %></td>
+<td><%= group.debut_date %></td>
+
+```
 
 
 

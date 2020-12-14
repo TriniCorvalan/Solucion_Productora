@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  crew: 1
+  debut_date: 2020-12-14
+  type_group: 1
+
+two:
+  crew: 1
+  debut_date: 2020-12-14
+  type_group: 1

@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.eager_load(:concerts)
+    @groups = Group.eager_load(:concerts, :crews)
   end
 
   # GET /groups/1

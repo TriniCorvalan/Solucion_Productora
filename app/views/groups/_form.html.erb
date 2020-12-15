@@ -17,8 +17,18 @@
   </div>
 
   <div class="field">
-    <%= form.label :crew %>
+    <%= form.label :crew, "Cantidad de miembros" %>
     <%= form.number_field :crew %>
+  </div>
+
+  <div id="crews">
+    <%= form.fields_for :crews do |ff| %>
+      <%= render 'crew_fields', :f => ff %>
+    <% end %>
+  </div>
+
+  <div class="links">
+    <%= link_to_add_association 'Add another member', form, :crews %>
   </div>
 
   <div class="field">

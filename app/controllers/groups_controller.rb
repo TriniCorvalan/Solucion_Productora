@@ -16,6 +16,7 @@ class GroupsController < ApplicationController
   def new
     @group = Group.new
     @type_groups = Group.type_groups.keys.to_a
+    @group.crews.build
   end
 
   # GET /groups/1/edit
@@ -71,6 +72,6 @@ class GroupsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def group_params
-      params.require(:group).permit(:name, :crew, :debut_date, :type_group)
+      params.require(:group).permit(:name, :crew, :debut_date, :type_group, crews_attributes: [:name, :group_id])
     end
 end

@@ -1,7 +1,9 @@
 class Group < ApplicationRecord
     has_many :concerts, dependent: :destroy
+    has_many :crews, dependent: :destroy
+    accepts_nested_attributes_for :crews
     enum type_group: %w[Girlgroup Boygroup Band]
-
+    
     def concerts_this_month
        f = []
         d =  self.concerts.map do |c|

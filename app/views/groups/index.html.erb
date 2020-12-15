@@ -7,6 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Crew</th>
+      <th>Crew names</th>
       <th>Concerts</th>
       <th>Type Of Group</th>
       <th>Debut Date</th>
@@ -24,6 +25,13 @@
         <td><%= group.name %></td>
         <td><%= group.crew %></td>
         <td>
+          <ol>
+            <% group.crews.each do |member| %>
+              <li><%= member.name %></li>
+            <% end %>
+          </ol>
+        </td>
+        <td>
           <ul>
             <% group.concerts.each do |concert| %>
               <li><%= concert.place %>, <%= concert.attendance %> Asistentes</li>
@@ -33,7 +41,12 @@
         <td><%= group.type_group %></td>
         <td><%= group.debut_date %></td>
         <td><%= group.concerts_this_month %></td>
-        <td><%= group.last_concert.strftime("%Y-%B-%A") %></td>
+        <% if group.concerts.present? %>
+          <td><%= group.last_concert.strftime("%Y-%B-%A") %></td>
+          <%else  %>
+          <td> Tu grupo aún no tiene conciertos :<</td>
+        <% end %>
+        
         <td><%= group.most_people %></td>
         <td><%= group.longest_concert %> hours</td>
         <td><%= link_to 'Show', group %></td>

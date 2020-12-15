@@ -197,3 +197,74 @@ end
 <td><%= group.most_people %></td>
 <td><%= group.longest_concert %> hours</td>
 ```
+- [x] *Agregar la relación completa entre Group y Crew*
+
+*Para realizar este paso debemos integrar **Jquery** y la gema **coocoon** a nuestro gemfile*
+
+```ruby
+gem 'jquery-rails'
+gem "cocoon"
+```
+*Como nos especifican las gemas en su uso debemos agregar los requerimientos en **application.js** para que sean cargados en el **asset pipeline**, es importante recalcar que necesitamos **jquery3** para que la gema **coocoon** funcione con normalidad*
+
+```ruby
+//= require jquery3
+//= require rails-ujs
+//= require cocoon
+```
+*Ya realizados estos pasos procedemos a correr **bundle** en nuestro terminal para cargar las gemas en nuestro proyecto y empezamos a crear el modelo **Crew***
+
+```ruby
+ rails g model crew name group:references
+```
+*Muy importante revisar la migración y cargarla a la base de datos*
+
+```ruby
+ rails db:migrate
+```
+*Luego de que la migración está cargada en el **schema.rb** podemos agregar las relaciones que faltan en el modelo **Group** y le damos facultades para que elimine a los miembros si el grupo se disuelve*
+
+```ruby
+has_many :crews, dependent: :destroy
+```
+
+- [X] *Desde la vista New de Group, debo ser capaz de añadir integrantes una vez creado el grupo.*
+
+*Debemos decirle a nuestro modelo **Group** que pueda recibir datos anidados en cuanto a sus miembros, puesto que vamos a cargarlos al mismo tiempo que creamos un grupo*
+
+```ruby
+accepts_nested_attributes_for :crews
+```
+*Una vez realizado este paso debemos decirle al controlador de **Groups**, es decir en **groups_controller.rb**, especificamente en el método **new** al final del mismo que cuando se cree un nuevo grupo también **"construya"** a los miembros de este*
+
+```ruby
+@group.crews.build
+```
+*Al decirle al controlador que también debe crear un objeto a parte del que esta acostumbrado, debemos ir a los **private params** para que acepte los atributos nuevos y el método **.build** funcione de forma normal*
+
+```ruby
+crews_attributes: [:name, :group_id]
+```
+
+*Para poder hacer que la gema **coocoon** funcione, debemos crear los campos del formulario anidado en una vista parcial, que llamaremos **_crew_fields.html.erb***
+
+```ruby
+<div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+</div>
+```
+
+*Ahora podemos realizar la integración de nuestro formulario para añadir miembros al grupo, el **id** del div que lo contiene debe ser llamado como el nombre de la relación a la que esta apuntando, en este caso **crews** y luego para poder añadir más campos de ser necesarios, usaremos el **helper** integrado con la gema **coocoon** llamado **link_to_add_association** que nos permite replicar el formulario anidado para poder añadir más miembros a la vez*
+
+```ruby
+  <div id="crews">
+    <%= form.fields_for :crews do |ff| %>
+      <%= render 'crew_fields', :f => ff %>
+    <% end %>
+  </div>
+
+  <div class="links">
+    <%= link_to_add_association 'Add another member', form, :crews %>
+  </div>
+```

@@ -130,11 +130,70 @@ has_many :concerts, dependent: :destroy
 
 - [x] En la vista Show de Group debe poder mostrar una tabla con los siguientes datos:
   
->Cuántos conciertos tuvo este mes **(2 Puntos)**
->Cuánto tiempo ha pasado desde su último concierto (en palabras)**(1 Punto)**
->Cuál es el concierto con la mayor cantidad de asistentes **(1 Punto)**
->Cuál fue el concierto de mayor duración del grupo. **(1 Punto)**
+> - [x] Cuántos conciertos tuvo este mes **(2 Puntos)**
 
+*para esto debemos hacer un método en el modelo que maneje la lógica de este requerimiento, lo llamaremos **concerts_this_month***
 
+```ruby
+def concerts_this_month
+    f = []
+    d =  self.concerts.map do |c|
+            c.date.month
+         end 
+    d.each do |date|
+        f << date if date == Time.now.month
+    end  
+    f.count
+end
+```
 
+> - [x] Cuándo fue su último concierto con formato de fecha “Año - Mes en palabras- día en palabras”**(1 Punto)**
 
+*Al igual que en el paso anterior y en los siguientes crearemos un método en **group.rb** lo llamaremos **last_concert***
+
+```ruby
+def last_concert
+    concerts.map {|c|c.date}.max
+end
+```
+
+> - [x] Cuanto es el número máximo de personas que ha ido a un concierto **(1 Punto)**
+
+*Este método lo llamaremos **most_people***
+
+```ruby
+def most_people
+    concerts.map {|c| c.attendance}.max
+end
+```
+
+> - [x] Cuál ha sido el mayor tiempo que ha durado un concierto. **(1 Punto)**
+
+*Este método lo llamaremos **longest_concert***
+
+```ruby
+def longest_concert
+    concerts.map {|c| c.duration}.max
+end
+```
+
+*Para poder mostrarlos en el index de **Group** necesitamos agregar los encabezados y agregar el contenido a la tabla de la siguiente forma*
+
+```ruby
+<th>Concerts This Month</th>
+<th>Last Concert</th>
+<th>Most Attendance</th>
+<th>Longest Concert</th>
+.
+.
+.
+.
+.
+.
+.
+.
+<td><%= group.concerts_this_month %></td>
+<td><%= group.last_concert.strftime("%Y-%B-%A") %></td>
+<td><%= group.most_people %></td>
+<td><%= group.longest_concert %> hours</td>
+```
